@@ -1,36 +1,32 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+import { useCounterStore } from '../store/useCounterStore'
+import { Product } from '../store/ProductType'
 
-defineProps({
-  msg: String,
-})
+const userStore = useCounterStore()
 
-const count = ref(0)
+var products: Product[];
+
+var id : string;
+var title: string;
+
+function search(id:string, title: string) {
+  products = userStore.products.filter((product) => {return product.id == id && product.title == title})
+};
+
+function add(){
+  userStore.AddToProduct();
+}
+function remove(){
+  userStore.RemoveFromProduct(id);
+}
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <input type="text" value="id">
+  <input type="text" value="title">
+  <button @click="search(id, title)">search</button>
+  <div v-for="product in products">{{product}}</div>
 </template>
 
 <style scoped>

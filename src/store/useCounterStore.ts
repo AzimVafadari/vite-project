@@ -1,5 +1,6 @@
 import { defineStore } from "pinia"
 import { Product } from "./ProductType"
+import { nanoid } from "nanoid"
 
 export const useCounterStore = defineStore('counter', {
     state: () => {
@@ -9,7 +10,8 @@ export const useCounterStore = defineStore('counter', {
     },
     actions: {
       AddToProduct() {
-        this.products.push({id: "1", title: "fruit"})
+        const idg: string = nanoid();
+        this.products.push({id: idg, title: idg})
       },
       RemoveFromProduct(id: string) {
         this.products.fillter((product) => {return product.id != id})

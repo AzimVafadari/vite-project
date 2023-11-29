@@ -10,6 +10,9 @@ var products: Product[];
 var id : string;
 var title: string;
 
+var showlightgreen: boolean;
+var showAnyColor: boolean = true;
+
 function search(id:string, title: string) {
   products = userStore.products.filter((product) => {return product.id == id && product.title == title})
 };
@@ -17,20 +20,34 @@ function search(id:string, title: string) {
 function add(){
   userStore.AddToProduct();
 }
-function remove(){
+function remove(id){
   userStore.RemoveFromProduct(id);
+}
+function changeColor(){
+  if(showAnyColor){
+    showlightgreen = true;
+    showAnyColor = false;
+  }else{
+    showAnyColor = true;
+    showlightgreen = false;
+  }
 }
 </script>
 
 <template>
+  <p>vfdv</p>
   <input type="text" value="id">
   <input type="text" value="title">
   <button @click="search(id, title)">search</button>
-  <div v-for="product in products">{{product}}</div>
+  <div v-for="product in products">
+    <button @dblclick="remove(product.id)" v-if="showAnyColor">{{product.id}}</button>
+    <button class="g" @dblclick="remove(product.id)" v-if="showlightgreen">{{product.id}}</button>
+  </div>
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
+.g {
+  background-color: #2dbe10;
 }
+
 </style>

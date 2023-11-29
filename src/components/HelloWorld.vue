@@ -35,13 +35,15 @@ function changeColor(){
 </script>
 
 <template>
-  <p>vfdv</p>
+  <!-- This inputs is for search -->
   <input type="text" value="id">
   <input type="text" value="title">
   <button @click="search(id, title)">search</button>
+  <button @click="add()">add</button>
+  <!-- This div show all products -->
   <div v-for="product in products">
-    <button @dblclick="remove(product.id)" v-if="showAnyColor">{{product.id}}</button>
-    <button class="g" @dblclick="remove(product.id)" v-if="showlightgreen">{{product.id}}</button>
+    <button @click="changeColor()" @dblclick="remove(product.id)" v-if="showAnyColor">{{product.id}}</button>
+    <button @click="changeColor()" class="g" @dblclick="remove(product.id)" v-if="showlightgreen">{{product.id}}</button>
   </div>
 </template>
 
